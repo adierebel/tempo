@@ -191,37 +191,37 @@ public class HomeTabMusicFragment extends Fragment implements ClickCallback {
         bind.starredTracksTextViewClickable.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString(Constants.MEDIA_STARRED, Constants.MEDIA_STARRED);
-            activity.navController.navigate(R.id.action_homeFragment_to_songListPageFragment, bundle);
+            activity.navController.navigate(R.id.action_landingFragment_to_songListPageFragment, bundle);
         });
 
         bind.starredAlbumsTextViewClickable.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString(Constants.ALBUM_STARRED, Constants.ALBUM_STARRED);
-            activity.navController.navigate(R.id.action_homeFragment_to_albumListPageFragment, bundle);
+            activity.navController.navigate(R.id.action_landingFragment_to_albumListPageFragment, bundle);
         });
 
         bind.starredArtistsTextViewClickable.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString(Constants.ARTIST_STARRED, Constants.ARTIST_STARRED);
-            activity.navController.navigate(R.id.action_homeFragment_to_artistListPageFragment, bundle);
+            activity.navController.navigate(R.id.action_landingFragment_to_artistListPageFragment, bundle);
         });
 
         bind.recentlyAddedAlbumsTextViewClickable.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString(Constants.ALBUM_RECENTLY_ADDED, Constants.ALBUM_RECENTLY_ADDED);
-            activity.navController.navigate(R.id.action_homeFragment_to_albumListPageFragment, bundle);
+            activity.navController.navigate(R.id.action_landingFragment_to_albumListPageFragment, bundle);
         });
 
         bind.recentlyPlayedAlbumsTextViewClickable.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString(Constants.ALBUM_RECENTLY_PLAYED, Constants.ALBUM_RECENTLY_PLAYED);
-            activity.navController.navigate(R.id.action_homeFragment_to_albumListPageFragment, bundle);
+            activity.navController.navigate(R.id.action_landingFragment_to_albumListPageFragment, bundle);
         });
 
         bind.mostPlayedAlbumsTextViewClickable.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString(Constants.ALBUM_MOST_PLAYED, Constants.ALBUM_MOST_PLAYED);
-            activity.navController.navigate(R.id.action_homeFragment_to_albumListPageFragment, bundle);
+            activity.navController.navigate(R.id.action_landingFragment_to_albumListPageFragment, bundle);
         });
 
         bind.starredTracksTextViewRefreshable.setOnLongClickListener(v -> {

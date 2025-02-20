@@ -2,6 +2,7 @@ package com.cappielloantonio.tempo.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,6 +44,7 @@ public class AlbumCatalogueFragment extends Fragment implements ClickCallback {
     private AlbumCatalogueViewModel albumCatalogueViewModel;
 
     private AlbumCatalogueAdapter albumAdapter;
+    private int spanCount = 2;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +66,10 @@ public class AlbumCatalogueFragment extends Fragment implements ClickCallback {
 
         bind = FragmentAlbumCatalogueBinding.inflate(inflater, container, false);
         View view = bind.getRoot();
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            spanCount = 4;
+        }
 
         initAppBar();
         initAlbumCatalogueView();
@@ -108,8 +114,8 @@ public class AlbumCatalogueFragment extends Fragment implements ClickCallback {
 
     @SuppressLint("ClickableViewAccessibility")
     private void initAlbumCatalogueView() {
-        bind.albumCatalogueRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-        bind.albumCatalogueRecyclerView.addItemDecoration(new GridItemDecoration(2, 20, false));
+        bind.albumCatalogueRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), spanCount));
+        bind.albumCatalogueRecyclerView.addItemDecoration(new GridItemDecoration(spanCount, 20, false));
         bind.albumCatalogueRecyclerView.setHasFixedSize(true);
 
         albumAdapter = new AlbumCatalogueAdapter(this, true);

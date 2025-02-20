@@ -19,6 +19,49 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/landingFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_landingFragment_to_albumListPageFragment"
+            app:destination="@id/albumListPageFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_albumPageFragment"
+            app:destination="@id/albumPageFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_artistPageFragment"
+            app:destination="@id/artistPageFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_artistListPageFragment"
+            app:destination="@id/artistListPageFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_playlistPageFragment"
+            app:destination="@id/playlistPageFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_podcastChannelCatalogueFragment"
+            app:destination="@id/podcastChannelCatalogueFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_artistCatalogueFragment"
+            app:destination="@id/artistCatalogueFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_albumCatalogueFragment"
+            app:destination="@id/albumCatalogueFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_genreCatalogueFragment"
+            app:destination="@id/genreCatalogueFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_playlistCatalogueFragment"
+            app:destination="@id/playlistCatalogueFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_songListPageFragment"
+            app:destination="@id/songListPageFragment" />
+        <action
+            android:id="@+id/action_landingFragment_to_indexFragment"
+            app:destination="@id/indexFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -41,105 +84,18 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_homeFragment_to_songListPageFragment"
-            app:destination="@id/songListPageFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_albumListPageFragment"
-            app:destination="@id/albumListPageFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_albumPageFragment"
-            app:destination="@id/albumPageFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_artistPageFragment"
-            app:destination="@id/artistPageFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_artistListPageFragment"
-            app:destination="@id/artistListPageFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_playlistPageFragment"
-            app:destination="@id/playlistPageFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_podcastChannelCatalogueFragment"
-            app:destination="@id/podcastChannelCatalogueFragment" />
     </fragment>
     <fragment
         android:id="@+id/libraryFragment"
         android:name="com.cappielloantonio.tempo.ui.fragment.LibraryFragment"
         android:label="LibraryFragment"
         tools:layout="@layout/fragment_library">
-        <action
-            android:id="@+id/action_libraryFragment_to_artistCatalogueFragment"
-            app:destination="@id/artistCatalogueFragment" />
-        <action
-            android:id="@+id/action_libraryFragment_to_albumCatalogueFragment"
-            app:destination="@id/albumCatalogueFragment" />
-        <action
-            android:id="@+id/action_libraryFragment_to_genreCatalogueFragment"
-            app:destination="@id/genreCatalogueFragment" />
-        <action
-            android:id="@+id/action_libraryFragment_to_playlistCatalogueFragment"
-            app:destination="@id/playlistCatalogueFragment" />
-        <action
-            android:id="@+id/action_libraryFragment_to_artistPageFragment"
-            app:destination="@id/artistPageFragment" />
-        <action
-            android:id="@+id/action_libraryFragment_to_albumPageFragment"
-            app:destination="@id/albumPageFragment" />
-        <action
-            android:id="@+id/action_libraryFragment_to_songListPageFragment"
-            app:destination="@id/songListPageFragment" />
-        <action
-            android:id="@+id/action_libraryFragment_to_playlistPageFragment"
-            app:destination="@id/playlistPageFragment" />
-        <action
-            android:id="@+id/action_libraryFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
-        <action
-            android:id="@+id/action_libraryFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_libraryFragment_to_albumListPageFragment"
-            app:destination="@id/albumListPageFragment" />
-        <action
-            android:id="@+id/action_libraryFragment_to_indexFragment"
-            app:destination="@id/indexFragment" />
     </fragment>
     <fragment
         android:id="@+id/downloadFragment"
         android:name="com.cappielloantonio.tempo.ui.fragment.DownloadFragment"
         android:label="DownloadFragment"
         tools:layout="@layout/fragment_download">
-        <action
-            android:id="@+id/action_downloadFragment_to_songListPageFragment"
-            app:destination="@id/songListPageFragment" />
-        <action
-            android:id="@+id/action_downloadFragment_to_albumPageFragment"
-            app:destination="@id/albumPageFragment" />
-        <action
-            android:id="@+id/action_downloadFragment_to_albumListPageFragment"
-            app:destination="@id/albumListPageFragment" />
-        <action
-            android:id="@+id/action_downloadFragment_to_artistListPageFragment"
-            app:destination="@id/artistListPageFragment" />
-        <action
-            android:id="@+id/action_downloadFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
-        <action
-            android:id="@+id/action_downloadFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_downloadFragment_to_playlistPageFragment"
-            app:destination="@id/playlistPageFragment" />
-        <action
-            android:id="@+id/action_downloadFragment_to_playlistCatalogueFragment"
-            app:destination="@id/playlistCatalogueFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

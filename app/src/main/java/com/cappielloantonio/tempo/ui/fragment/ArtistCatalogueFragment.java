@@ -2,6 +2,7 @@ package com.cappielloantonio.tempo.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,6 +43,7 @@ public class ArtistCatalogueFragment extends Fragment implements ClickCallback {
     private ArtistCatalogueViewModel artistCatalogueViewModel;
 
     private ArtistCatalogueAdapter artistAdapter;
+    private int spanCount = 2;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +59,10 @@ public class ArtistCatalogueFragment extends Fragment implements ClickCallback {
 
         bind = FragmentArtistCatalogueBinding.inflate(inflater, container, false);
         View view = bind.getRoot();
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            spanCount = 4;
+        }
 
         initAppBar();
         initArtistCatalogueView();
@@ -100,8 +106,8 @@ public class ArtistCatalogueFragment extends Fragment implements ClickCallback {
 
     @SuppressLint("ClickableViewAccessibility")
     private void initArtistCatalogueView() {
-        bind.artistCatalogueRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-        bind.artistCatalogueRecyclerView.addItemDecoration(new GridItemDecoration(2, 20, false));
+        bind.artistCatalogueRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), spanCount));
+        bind.artistCatalogueRecyclerView.addItemDecoration(new GridItemDecoration(spanCount, 20, false));
         bind.artistCatalogueRecyclerView.setHasFixedSize(true);
 
         artistAdapter = new ArtistCatalogueAdapter(this);

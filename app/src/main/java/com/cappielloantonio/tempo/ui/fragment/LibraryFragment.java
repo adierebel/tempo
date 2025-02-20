@@ -95,13 +95,13 @@ public class LibraryFragment extends Fragment implements ClickCallback {
     }
 
     private void init() {
-        bind.albumCatalogueTextViewClickable.setOnClickListener(v -> activity.navController.navigate(R.id.action_libraryFragment_to_albumCatalogueFragment));
-        bind.artistCatalogueTextViewClickable.setOnClickListener(v -> activity.navController.navigate(R.id.action_libraryFragment_to_artistCatalogueFragment));
-        bind.genreCatalogueTextViewClickable.setOnClickListener(v -> activity.navController.navigate(R.id.action_libraryFragment_to_genreCatalogueFragment));
+        bind.albumCatalogueTextViewClickable.setOnClickListener(v -> activity.navController.navigate(R.id.action_landingFragment_to_albumCatalogueFragment));
+        bind.artistCatalogueTextViewClickable.setOnClickListener(v -> activity.navController.navigate(R.id.action_landingFragment_to_artistCatalogueFragment));
+        bind.genreCatalogueTextViewClickable.setOnClickListener(v -> activity.navController.navigate(R.id.action_landingFragment_to_genreCatalogueFragment));
         bind.playlistCatalogueTextViewClickable.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString(Constants.PLAYLIST_ALL, Constants.PLAYLIST_ALL);
-            activity.navController.navigate(R.id.action_libraryFragment_to_playlistCatalogueFragment, bundle);
+            activity.navController.navigate(R.id.action_landingFragment_to_playlistCatalogueFragment, bundle);
         });
 
         bind.albumCatalogueSampleTextViewRefreshable.setOnLongClickListener(view -> {

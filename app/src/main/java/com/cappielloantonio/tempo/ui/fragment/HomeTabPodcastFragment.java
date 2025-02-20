@@ -96,7 +96,7 @@ public class HomeTabPodcastFragment extends Fragment implements ClickCallback, P
             dialog.show(activity.getSupportFragmentManager(), null);
         });
 
-        bind.podcastChannelsTextViewClickable.setOnClickListener(v -> activity.navController.navigate(R.id.action_homeFragment_to_podcastChannelCatalogueFragment));
+        bind.podcastChannelsTextViewClickable.setOnClickListener(v -> activity.navController.navigate(R.id.action_landingFragment_to_podcastChannelCatalogueFragment));
         bind.hideSectionButton.setOnClickListener(v -> Preferences.setPodcastSectionHidden());
     }
 
