@@ -2,12 +2,15 @@ package com.cappielloantonio.tempo.ui.activity;
 
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
+import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.core.splashscreen.SplashScreen;
@@ -54,6 +57,7 @@ public class MainActivity extends BaseActivity {
     private BottomNavigationView bottomNavigationView;
     public NavController navController;
     private BottomSheetBehavior bottomSheetBehavior;
+    private boolean isLandscape = false;
 
     ConnectivityStatusBroadcastReceiver connectivityStatusBroadcastReceiver;
 
@@ -72,6 +76,8 @@ public class MainActivity extends BaseActivity {
 
         connectivityStatusBroadcastReceiver = new ConnectivityStatusBroadcastReceiver(this);
         connectivityStatusReceiverManager(true);
+
+        isLandscape = (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
 
         init();
         checkConnectionType();
@@ -116,6 +122,15 @@ public class MainActivity extends BaseActivity {
             goFromLogin();
         } else {
             goToLogin();
+        }
+
+        // Set bottom navigation height
+        if (isLandscape) {
+            ViewGroup.LayoutParams layoutParams = bottomNavigationView.getLayoutParams();
+            Rect windowRect = new Rect();
+            bottomNavigationView.getWindowVisibleDisplayFrame(windowRect);
+            layoutParams.width = windowRect.height();
+            bottomNavigationView.setLayoutParams(layoutParams);
         }
     }
 
@@ -191,7 +206,9 @@ public class MainActivity extends BaseActivity {
                 @Override
                 public void onSlide(@NonNull View view, float slideOffset) {
                     animateBottomSheet(slideOffset);
-                    animateBottomNavigation(slideOffset, navigationHeight);
+                    if (!isLandscape) {
+                        animateBottomNavigation(slideOffset, navigationHeight);
+                    }
                 }
             };
 
