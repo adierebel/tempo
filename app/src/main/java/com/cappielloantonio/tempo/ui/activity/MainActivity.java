@@ -274,6 +274,7 @@ public class MainActivity extends BaseActivity {
             // Redirect to home fragment
             if (destination.getId() == R.id.landingFragment && isLoggedIn) {
                 isLastPage = true;
+                setBottomNavigationBarVisibility(true);
                 if (prevFragmentTag != null) {
                     switchMainFragments(Integer.parseInt(prevFragmentTag));
                 } else {
