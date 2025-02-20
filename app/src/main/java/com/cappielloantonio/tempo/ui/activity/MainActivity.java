@@ -9,12 +9,15 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.core.splashscreen.SplashScreen;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.media3.common.Player;
 import androidx.media3.common.util.UnstableApi;
@@ -33,6 +36,9 @@ import com.cappielloantonio.tempo.ui.activity.base.BaseActivity;
 import com.cappielloantonio.tempo.ui.dialog.ConnectionAlertDialog;
 import com.cappielloantonio.tempo.ui.dialog.GithubTempoUpdateDialog;
 import com.cappielloantonio.tempo.ui.dialog.ServerUnreachableDialog;
+import com.cappielloantonio.tempo.ui.fragment.DownloadFragment;
+import com.cappielloantonio.tempo.ui.fragment.HomeFragment;
+import com.cappielloantonio.tempo.ui.fragment.LibraryFragment;
 import com.cappielloantonio.tempo.ui.fragment.PlayerBottomSheetFragment;
 import com.cappielloantonio.tempo.util.Constants;
 import com.cappielloantonio.tempo.util.Preferences;
@@ -58,6 +64,14 @@ public class MainActivity extends BaseActivity {
     public NavController navController;
     private BottomSheetBehavior bottomSheetBehavior;
     private boolean isLandscape = false;
+    private boolean isLoggedIn = false;
+    private boolean isLastPage = false;
+
+    private Fragment selectedFragment = null;
+    private String prevFragmentTag = null;
+    private HomeFragment homeFragment = null;
+    private LibraryFragment libraryFragment = null;
+    private DownloadFragment downloadFragment = null;
 
     ConnectivityStatusBroadcastReceiver connectivityStatusBroadcastReceiver;
 
@@ -78,6 +92,7 @@ public class MainActivity extends BaseActivity {
         connectivityStatusReceiverManager(true);
 
         isLandscape = (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
+        isLoggedIn = (Preferences.getPassword() != null || (Preferences.getToken() != null && Preferences.getSalt() != null));
 
         init();
         checkConnectionType();
@@ -108,8 +123,13 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED)
             collapseBottomSheetDelayed();
-        else
-            super.onBackPressed();
+        else {
+            if (isLastPage) {
+                finish();
+            } else {
+                super.onBackPressed();
+            }
+        }
     }
 
     public void init() {
@@ -118,7 +138,7 @@ public class MainActivity extends BaseActivity {
         initBottomSheet();
         initNavigation();
 
-        if (Preferences.getPassword() != null || (Preferences.getToken() != null && Preferences.getSalt() != null)) {
+        if (isLoggedIn) {
             goFromLogin();
         } else {
             goToLogin();
@@ -250,9 +270,84 @@ public class MainActivity extends BaseActivity {
             ) {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
+
+            // Redirect to home fragment
+            if (destination.getId() == R.id.landingFragment && isLoggedIn) {
+                isLastPage = true;
+                if (prevFragmentTag != null) {
+                    switchMainFragments(Integer.parseInt(prevFragmentTag));
+                } else {
+                    switchMainFragments(R.id.homeFragment);
+                }
+            } else {
+                // Hide all fragments
+                hideMainFragments();
+                isLastPage = false;
+
+                // Show NavHostFragment
+                for (Fragment fragment : fragmentManager.getFragments()) {
+                    if (fragment instanceof NavHostFragment) {
+                        FragmentTransaction transaction = fragmentManager.beginTransaction();
+                        transaction.show(fragment);
+                        transaction.commit();
+                    }
+                }
+            }
         });
 
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+        // NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            switchMainFragments(itemId);
+            return true;
+        });
+    }
+
+    private void hideMainFragments() {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        for (Fragment fragment : fragmentManager.getFragments()) {
+            Log.d(TAG, "FRAGMENT: " + fragment.getClass().getSimpleName());
+            if (
+                fragment instanceof HomeFragment ||
+                fragment instanceof LibraryFragment ||
+                fragment instanceof DownloadFragment ||
+                fragment instanceof NavHostFragment
+            ) {
+                transaction.hide(fragment);
+            }
+        }
+        Log.d(TAG, "FRAGMENT: ---------- ");
+        transaction.commit();
+    }
+
+    private void switchMainFragments(int itemId) {
+        // Init
+        if (itemId == R.id.homeFragment) {
+            if (homeFragment == null) homeFragment = new HomeFragment();
+            selectedFragment = homeFragment;
+        }
+        else if (itemId == R.id.libraryFragment) {
+            if (libraryFragment == null) libraryFragment = new LibraryFragment();
+            selectedFragment = libraryFragment;
+        }
+        else if (itemId == R.id.downloadFragment) {
+            if (downloadFragment == null) downloadFragment = new DownloadFragment();
+            selectedFragment = downloadFragment;
+        }
+
+        // Show fragments
+        prevFragmentTag = String.valueOf(itemId);
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        hideMainFragments();
+        if (fragmentManager.findFragmentByTag(prevFragmentTag) != null) {
+            transaction.show(Objects.requireNonNull(fragmentManager.findFragmentByTag(prevFragmentTag)));
+        }
+        else {
+            transaction.add(R.id.nav_host_fragment, selectedFragment, prevFragmentTag);
+        }
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     public void setBottomNavigationBarVisibility(boolean visibility) {
@@ -299,10 +394,10 @@ public class MainActivity extends BaseActivity {
     private void goToHome() {
         bottomNavigationView.setVisibility(View.VISIBLE);
 
-        if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.landingFragment) {
-            navController.navigate(R.id.action_landingFragment_to_homeFragment);
-        } else if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.loginFragment) {
-            navController.navigate(R.id.action_loginFragment_to_homeFragment);
+        if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.loginFragment) {
+            navController.popBackStack(R.id.loginFragment, true);
+            navController.navigate(R.id.landingFragment);
+            // switchMainFragments(R.id.homeFragment);
         }
     }
 
