@@ -4,8 +4,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingEnd="12dp"
-    android:paddingBottom="8dp">
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground"
+    android:padding="6dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
