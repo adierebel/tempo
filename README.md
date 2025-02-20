@@ -12,7 +12,7 @@
 <p align="center">
    <b>This is a Fork version of the original repo, with added support for landscape mode, Android TV, and Car Head Unit (Android Based).
      <br />
-     In this version I removed some variants, I don't know if this will break the application.
+     In this version I removed some variants, I don't know if this will break the application or not ^.^
      <br />If you want to make a pull request, I am very open to merging.</b>
 </p>
 
