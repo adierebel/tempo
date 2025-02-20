@@ -7,11 +7,13 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/CappielloAntonio/tempo/releases"><img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png" width="200"></a>
+    <a href="https://github.com/adierebel/tempo/releases"><img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png" width="200"></a>
 </p>
 <p align="center">
-    <a href="https://f-droid.org/packages/com.cappielloantonio.notquitemy.tempo"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" width="200"></a>
-    <a href="https://apt.izzysoft.de/fdroid/index/apk/com.cappielloantonio.tempo"><img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" width="200"></a>
+   <b>This is a Fork version of the original repo, with added support for landscape mode, Android TV, and Car Head Unit (Android Based).
+     <br />
+     In this version I removed some variants, I don't know if this will break the application.
+     <br />If you want to make a pull request, I am very open to merging.</b>
 </p>
 
 **Tempo** is an open-source and lightweight music client for Subsonic, designed and built natively for Android. It provides a seamless and intuitive music streaming experience, allowing you to access and play your Subsonic music library directly from your Android device. 
