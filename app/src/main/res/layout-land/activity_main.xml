@@ -29,6 +29,7 @@
                     android:layout_gravity="center"
                     android:paddingStart="12dp"
                     android:paddingEnd="68dp"
+                    android:visibility="gone"
                     app:menu="@menu/bottom_nav_menu" />
 
             </FrameLayout>

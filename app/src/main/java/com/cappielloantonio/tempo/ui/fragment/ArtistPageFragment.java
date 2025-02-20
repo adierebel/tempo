@@ -2,6 +2,7 @@ package com.cappielloantonio.tempo.ui.fragment;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -56,6 +57,8 @@ public class ArtistPageFragment extends Fragment implements ClickCallback {
 
     private ListenableFuture<MediaBrowser> mediaBrowserListenableFuture;
 
+    private int spanCount = 2;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activity = (MainActivity) getActivity();
@@ -63,6 +66,10 @@ public class ArtistPageFragment extends Fragment implements ClickCallback {
         bind = FragmentArtistPageBinding.inflate(inflater, container, false);
         View view = bind.getRoot();
         artistPageViewModel = new ViewModelProvider(requireActivity()).get(ArtistPageViewModel.class);
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            spanCount = 4;
+        }
 
         init();
         initAppBar();
@@ -188,8 +195,8 @@ public class ArtistPageFragment extends Fragment implements ClickCallback {
     }
 
     private void initAlbumsView() {
-        bind.albumsRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-        bind.albumsRecyclerView.addItemDecoration(new GridItemDecoration(2, 20, false));
+        bind.albumsRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), spanCount));
+        bind.albumsRecyclerView.addItemDecoration(new GridItemDecoration(spanCount, 20, false));
         bind.albumsRecyclerView.setHasFixedSize(true);
 
         albumCatalogueAdapter = new AlbumCatalogueAdapter(this, false);
@@ -207,8 +214,8 @@ public class ArtistPageFragment extends Fragment implements ClickCallback {
     }
 
     private void initSimilarArtistsView() {
-        bind.similarArtistsRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-        bind.similarArtistsRecyclerView.addItemDecoration(new GridItemDecoration(2, 20, false));
+        bind.similarArtistsRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), spanCount));
+        bind.similarArtistsRecyclerView.addItemDecoration(new GridItemDecoration(spanCount, 20, false));
         bind.similarArtistsRecyclerView.setHasFixedSize(true);
 
         artistCatalogueAdapter = new ArtistCatalogueAdapter(this);
