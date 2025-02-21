@@ -255,7 +255,12 @@ public class MainActivity extends BaseActivity {
 
     private void initNavigation() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.nav_host_fragment);
+        for (Fragment fragment : fragmentManager.getFragments()) {
+            if (fragment instanceof NavHostFragment) {
+                navHostFragment = (NavHostFragment) fragment;
+                break;
+            }
+        }
         navController = Objects.requireNonNull(navHostFragment).getNavController();
 
         /*
@@ -264,9 +269,9 @@ public class MainActivity extends BaseActivity {
          */
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED && (
-                    destination.getId() == R.id.homeFragment ||
-                            destination.getId() == R.id.libraryFragment ||
-                            destination.getId() == R.id.downloadFragment)
+                destination.getId() == R.id.homeFragment ||
+                destination.getId() == R.id.libraryFragment ||
+                destination.getId() == R.id.downloadFragment)
             ) {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
@@ -295,8 +300,6 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
-
-        // NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
